@@ -1,1 +1,1 @@
-include ':sample', ':akit'
+include ':akit-sample', ':akit-common', ':akit-http', ':akit-crash', ':akit-logger'
