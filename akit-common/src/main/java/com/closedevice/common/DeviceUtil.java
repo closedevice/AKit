@@ -264,4 +264,28 @@ public class DeviceUtil {
         }
         return type;
     }
+
+    public static String dumpInfo() {
+        String phoneInfo = "Product: " + Build.PRODUCT + "\n";
+        phoneInfo += ", CPU_ABI: " + Build.CPU_ABI + "\n";
+        phoneInfo += ", TAGS: " + Build.TAGS + "\n";
+        phoneInfo += ", VERSION_CODES.BASE: " + Build.VERSION_CODES.BASE + "\n";
+        phoneInfo += ", MODEL: " + Build.MODEL + "\n";
+        phoneInfo += ", SDK: " + Build.VERSION.SDK + "\n";
+        phoneInfo += ", VERSION.RELEASE: " + Build.VERSION.RELEASE + "\n";
+        phoneInfo += ", DEVICE: " + Build.DEVICE + "\n";
+        phoneInfo += ", DISPLAY: " + Build.DISPLAY + "\n";
+        phoneInfo += ", BRAND: " + Build.BRAND + "\n";
+        phoneInfo += ", BOARD: " + Build.BOARD + "\n";
+        phoneInfo += ", FINGERPRINT: " + Build.FINGERPRINT + "\n";
+        phoneInfo += ", ID: " + Build.ID + "\n";
+        phoneInfo += ", MANUFACTURER: " + Build.MANUFACTURER + "\n";
+        phoneInfo += ", USER: " + Build.USER + "\n";
+        phoneInfo += ", BOOTLOADER: " + Build.BOOTLOADER + "\n";
+        phoneInfo += ", HARDWARE: " + Build.HARDWARE + "\n";
+        phoneInfo += ", INCREMENTAL: " + Build.VERSION.INCREMENTAL + "\n";
+        phoneInfo += ", CODENAME: " + Build.VERSION.CODENAME + "\n";
+        phoneInfo += ", SDK: " + Build.VERSION.SDK_INT + "\n";
+        return phoneInfo;
+    }
 }
