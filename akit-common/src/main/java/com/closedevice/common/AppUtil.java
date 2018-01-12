@@ -1,9 +1,11 @@
 package com.closedevice.common;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.content.pm.Signature;
 
 /**
  * @author liudongdong
@@ -71,5 +73,30 @@ public class AppUtil {
             e.printStackTrace();
         }
         return "";
+    }
+
+    @SuppressLint("PackageManagerGetSignatures")
+    public static Signature[] getSystemSignatures(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo androidPackageInfo = pm.getPackageInfo("android", PackageManager.GET_SIGNATURES);
+            return androidPackageInfo.signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            //never happen,ignore
+            e.printStackTrace();
+        }
+        return null;
+    }
+
+    @SuppressLint("PackageManagerGetSignatures")
+    public static Signature[] getAppSignatures(Context context) {
+        try {
+            PackageManager pm = context.getPackageManager();
+            PackageInfo appPackageInfo = pm.getPackageInfo(context.getPackageName(), PackageManager.GET_SIGNATURES);
+            return appPackageInfo.signatures;
+        } catch (PackageManager.NameNotFoundException e) {
+            //never happen,ignore
+        }
+        return null;
     }
 }
