@@ -28,6 +28,17 @@ public class ProcessUtil {
             return false;
         }
         String mainProcess = packageInfo.applicationInfo.processName;
+        String processName = getProcessName(context);
+        return processName.equals(mainProcess);
+    }
+
+    /**
+     * Gets current process name.
+     *
+     * @param context
+     * @return
+     */
+    public static String getProcessName(Context context) {
         int myPid = android.os.Process.myPid();
         ActivityManager activityManager =
                 (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
@@ -42,9 +53,6 @@ public class ProcessUtil {
                 }
             }
         }
-        if (myProcess == null) {
-            return false;
-        }
-        return myProcess.processName.equals(mainProcess);
+        return myProcess != null ? myProcess.processName : "";
     }
 }
