@@ -6,15 +6,21 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.Signature;
+import android.os.Build;
+import android.os.StrictMode;
+import android.support.annotation.RequiresApi;
 
 /**
- * @author liudongdong
+ * @author closedevice
  * @date 2018/1/12
  */
 
 public class AppUtil {
 
-    public static int getVersonCode(Context context, String packageName) {
+    private AppUtil() {
+    }
+
+    public static int getVersionCode(Context context, String packageName) {
         try {
             PackageInfo packageInfo = context.getPackageManager().getPackageInfo(packageName, 0);
             return packageInfo.versionCode;
@@ -40,11 +46,7 @@ public class AppUtil {
         }
         try {
             ApplicationInfo ai = packageManager.getApplicationInfo(packageName, 0);
-            if (ai.enabled) {
-                return true;
-            } else {
-                return false;
-            }
+            return ai.enabled;
         } catch (Exception e) {
             return false;
         }
@@ -98,5 +100,25 @@ public class AppUtil {
             //never happen,ignore
         }
         return null;
+    }
+
+    public static boolean isAppDebug(Context context) {
+        PackageManager pm = context.getPackageManager();
+        try {
+            ApplicationInfo ai = pm.getApplicationInfo(getPackageName(context), 0);
+            return ai != null && (ai.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
+    private static void enabledStrictMode() {
+        StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder() //
+                .detectAll() //
+                .penaltyLog() //
+                .penaltyDeath() //
+                .build());
     }
 }
