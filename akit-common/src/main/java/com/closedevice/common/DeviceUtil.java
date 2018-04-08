@@ -5,6 +5,7 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
+import android.os.PowerManager;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresPermission;
 import android.telephony.CellLocation;
@@ -288,4 +289,16 @@ public class DeviceUtil {
         phoneInfo += ", SDK: " + Build.VERSION.SDK_INT + "\n";
         return phoneInfo;
     }
+
+    public static void reboot(Context context, String reason) {
+        PowerManager pm = (PowerManager) context.getSystemService(Context.POWER_SERVICE);
+        if (pm == null) return;
+        try {
+            pm.reboot(reason);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+
 }
